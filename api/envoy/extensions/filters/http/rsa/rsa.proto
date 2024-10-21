@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package envoy.extensions.filters.http.rsa.v3;
+
+import "udpa/annotations/status.proto";
+import "udpa/annotations/versioning.proto";
+import "validate/validate.proto";
+
+option java_package = "io.envoyproxy.envoy.extensions.filters.http.rsa.v3";
+option java_outer_classname = "RsaProto";
+option java_multiple_files = true;
+option (udpa.annotations.file_status).package_version_status = ACTIVE;
+
+// [#protodoc-title: rsa]
+// rsa :ref:`configuration overview <config_http_filters_rsa>`.
+// [#extension: envoy.filters.http.rsa]
+
+// 定义 RSA 过滤器配置
+message RsaFilterConfig {
+  // private key path
+  string private_key_path = 1 [
+                                (validate.rules).string = {min_len: 0}
+                              ];
+
+  // public key path
+  string public_key_path = 2 [
+                                (validate.rules).string = {min_len: 0}
+                             ];
+
+  // List of API paths that require encryption/decryption
+  repeated string rsa_apis = 3;
+}
